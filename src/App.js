@@ -5,6 +5,7 @@ import LoginForm from './components/Login'
 import SignupForm from './components/SignupPage'
 import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
+import ExchangeModal from './components/ExchangeModal'
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
 			{/* <LoginForm></LoginForm> */}
 			{/* <SignupForm></SignupForm> */}
 			{/* <Navbar></Navbar> */}
-			<SearchBar></SearchBar>
+			{/* <SearchBar></SearchBar> */}
+			<ExchangeModal></ExchangeModal>
 
     </div>
   );

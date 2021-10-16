@@ -1,0 +1,40 @@
+@import "~bootstrap/scss/bootstrap";
+
+.form-exchange-header{
+	text-align: center;
+	padding: 10px;
+	// border: 1px solid black;
+
+	.row{
+		padding : 5px 0px;
+
+		.from{
+			background-color: rgb(47, 200, 47);
+		}
+
+		.to{
+			background-color: #fff;
+		}
+
+		.currency{
+			border: 1px solid black;
+			border-radius: 5px;
+			padding: 5px 15px;
+		}
+
+	}
+
+	.currency-row{
+		display: flex;
+		justify-content: space-around;
+	}
+
+}
+
+
+.exchange-form{
+	button{
+		display: flex;
+	}
+}
+

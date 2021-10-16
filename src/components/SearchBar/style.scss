@@ -1,0 +1,23 @@
+@import "~bootstrap/scss/bootstrap";
+
+.searchbar-wrapper{
+	width: 50%;
+	margin: 100px auto;
+
+	.list-group{
+		width: 90%;
+		margin: 0px auto;
+
+		.list-group-item{
+
+			cursor: pointer;
+		
+			&:hover{
+				background-color: #bbb;
+			}
+	
+		}
+
+	}
+
+}

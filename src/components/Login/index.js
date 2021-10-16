@@ -62,7 +62,7 @@ function FormExample() {
 				</Col>
 
 			</Form>
-			<a href="#">Don't have an account?</a>
+			<a href="/signup">Don't have an account?</a>
 		</div>
   );
 }

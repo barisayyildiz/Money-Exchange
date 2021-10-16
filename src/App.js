@@ -7,6 +7,13 @@ import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import ExchangeModal from './components/ExchangeModal'
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
@@ -14,7 +21,17 @@ function App() {
 			{/* <SignupForm></SignupForm> */}
 			{/* <Navbar></Navbar> */}
 			{/* <SearchBar></SearchBar> */}
-			<ExchangeModal></ExchangeModal>
+			{/* <ExchangeModal></ExchangeModal> */}
+
+
+			<Switch>
+				<Route exact path="/login">
+					<LoginForm></LoginForm>
+				</Route>
+				<Route path="/signup">
+					<SignupForm></SignupForm>
+				</Route>
+			</Switch>
 
     </div>
   );

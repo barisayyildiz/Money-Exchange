@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import './style.scss'
 
+import { useHistory } from "react-router-dom";
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, InputGroup } from 'react-bootstrap';
 
 
 function SignUp() {
+
+	let history = useHistory();
+
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("")
@@ -17,6 +22,24 @@ function SignUp() {
       event.preventDefault();
       event.stopPropagation();
     }
+
+		const users = JSON.parse(localStorage.getItem("users"));
+		const newUser = {
+			username,
+			password,
+			money:[
+				{
+					USD:10000
+				}
+			]
+		}
+		if(users !== undefined){
+			localStorage.setItem("users", JSON.stringify([...users, newUser]))
+		}else{
+			localStorage.setItem("users", JSON.stringify([newUser]))
+		}
+
+		history.push("/login");
 
     setValidated(true);
   };
@@ -62,7 +85,7 @@ function SignUp() {
 				</Col>
 
 			</Form>
-			<a href="#">Already have an account?</a>
+			<a href="/login">Already have an account?</a>
 		</div>
   );
 }

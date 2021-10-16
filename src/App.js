@@ -9,6 +9,7 @@ import SignupForm from './components/SignupPage'
 import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import ExchangeModal from './components/ExchangeModal'
+import CurrencyTable from './components/CurrencyTable'
 
 import {
 	isAuthenticated,
@@ -47,6 +48,7 @@ function App() {
 							<>
 								<Route path='/navbar' component={Navbar}></Route>
 								<Route path='/search' component={SearchBar}></Route>
+								<Route path='/table' component={CurrencyTable}></Route>
 							</>
 						) : (
 							<Redirect

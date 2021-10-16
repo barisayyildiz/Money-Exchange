@@ -3,6 +3,8 @@ import './style.scss'
 
 import { useHistory } from "react-router-dom";
 
+import { isAuthenticated, setAuthenticated } from '../../utils'
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, InputGroup } from 'react-bootstrap';
@@ -11,7 +13,7 @@ import { Row, Col, InputGroup } from 'react-bootstrap';
 function SignUp() {
 
 	let history = useHistory();
-
+	
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("")

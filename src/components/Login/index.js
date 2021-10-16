@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './style.scss'
+
+import { useHistory } from "react-router-dom";
+
+import { isAuthenticated, setAuthenticated } from '../../utils'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, InputGroup } from 'react-bootstrap';
 
+import { Context } from '../../context'
+
 
 function FormExample() {
+
+	let history = useHistory();
+
+	const context = useContext(Context);
+
+	console.log(context);
+
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("")
@@ -17,6 +30,14 @@ function FormExample() {
       event.preventDefault();
       event.stopPropagation();
     }
+
+		const users = JSON.parse(localStorage.getItem("users"));
+		users.forEach((user, index) => {
+			if(user.username === username && user.password === password){
+				setAuthenticated(index)
+				history.push("/menu")
+			}
+		})
 
     setValidated(true);
   };

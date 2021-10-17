@@ -5,8 +5,6 @@ import { isAuthenticated } from './utils';
 // Create Context
 const Context = createContext();
 
-const user = isAuthenticated()
-
 const ContextProvider = (props) => {
   const [authenticated, setAuthenticated] = useState(null)
 	const [modalProps, setModalProps] = useState({
@@ -23,7 +21,7 @@ const ContextProvider = (props) => {
 	})
 
 	const handleBuy = ({name, acr}) => {
-		const { monies } = user;
+		const { monies } = isAuthenticated();
 		setModalProps({
 			...modalProps,
 			open: true,
@@ -38,7 +36,7 @@ const ContextProvider = (props) => {
 	}
 
 	const handleSell = ({name, acr}) => {
-		const { monies } = user;
+		const { monies } = isAuthenticated();
 		setModalProps({
 			...modalProps,
 			open: true,

@@ -3,9 +3,12 @@ import './style.scss'
 
 import { Table, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
+import {
+	isAuthenticated,
+} from '../../utils'
 
-function CurrencyTable({props : {user, usdRate}}) {
-	const { monies } = user;
+function CurrencyTable({props : {usdRate}}) {
+	const { monies } = isAuthenticated();
 	const [rates, setRates] = useState({})
 	const [totalWorth, setTotalWorth] = useState(0);
 	const [lastUpdated, setLastUpdated] = useState(String(new Date()))

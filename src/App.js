@@ -16,16 +16,13 @@ import {
 } from "react-router-dom";
 
 function App() {
-	const user = isAuthenticated();
-	console.log(user)
-  
 	return (
 		<div className="App">
 			<Switch>
 				<Route
 					path={['/login', '/signup']}
 					render={({location:{pathname}}) => {
-						if(user){
+						if(isAuthenticated()){
 							return <Redirect	to={{pathname: "/"}}/>
 						}else if(pathname === '/login'){
 							return <LoginForm></LoginForm>
@@ -37,12 +34,10 @@ function App() {
 				</Route>
 				{
 					// if user is authenticated
-					user ? (
+					isAuthenticated() ? (
 						<>
 							<Route path='/'>
-								<MainMenu
-									user={user}
-								></MainMenu>
+								<MainMenu></MainMenu>
 							</Route>
 						</>
 					) : <Redirect	to={{pathname: "/login"}}/>

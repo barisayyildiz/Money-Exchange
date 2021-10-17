@@ -3,7 +3,7 @@ import './style.scss'
 import { Form, ListGroup } from 'react-bootstrap'
 import { Context } from '../../context';
 
-function SearchBar({props : {user, codes}}) {
+function SearchBar({props : {codes}}) {
 
 	const [options, setOptions] = useState([])
 	const { handleBuy } = useContext(Context);

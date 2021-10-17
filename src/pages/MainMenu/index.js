@@ -7,7 +7,7 @@ import SearchBar from '../../components/SearchBar'
 import ExchangeModal from '../../components/ExchangeModal'
 import CurrencyTable from '../../components/CurrencyTable'
 
-function MainMenu({user}) {
+function MainMenu() {
 
 	const apiKey = "0b196ddfbe66cabd2fc96fbe"
 	
@@ -38,11 +38,9 @@ function MainMenu({user}) {
 		<div>
 			<Navbar></Navbar>
 			<SearchBar props={{
-				user,
 				codes
 			}}></SearchBar>
 			<CurrencyTable props={{
-				user,
 				usdRate
 			}}></CurrencyTable>
 

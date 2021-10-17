@@ -1,7 +1,11 @@
 import React, { useState, createContext } from 'react';
 
+import { isAuthenticated } from './utils';
+
 // Create Context
 const Context = createContext();
+
+const user = isAuthenticated()
 
 const ContextProvider = (props) => {
   const [authenticated, setAuthenticated] = useState(null)
@@ -18,8 +22,38 @@ const ContextProvider = (props) => {
 		}
 	})
 
+	const handleBuy = ({name, acr}) => {
+		const { monies } = user;
+		setModalProps({
+			...modalProps,
+			open: true,
+			buying:true,
+			acrnList:monies.map(money => money.acr),
+			money:{
+				acrn:acr,
+				name:name,
+				fullName:acr + " - " + name
+			}
+		})
+	}
+
+	const handleSell = ({name, acr}) => {
+		const { monies } = user;
+		setModalProps({
+			...modalProps,
+			open: true,
+			buying:false,
+			acrnList:monies.map(money => money.acr),
+			money:{
+				acrn:acr,
+				name:name,
+				fullName:acr + " - " + name
+			}
+		})
+	}
+
   return (
-    <Context.Provider value={{authenticated, setAuthenticated, modalProps, setModalProps}}>
+    <Context.Provider value={{authenticated, setAuthenticated, modalProps, setModalProps, handleBuy, handleSell}}>
       {props.children}
     </Context.Provider>
   )

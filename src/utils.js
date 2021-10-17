@@ -1,3 +1,4 @@
+// local storage fonksiyonları
 
 const isAuthenticated = () => {
 	const index = localStorage.getItem("authenticated")

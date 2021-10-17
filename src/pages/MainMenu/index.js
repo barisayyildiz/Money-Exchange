@@ -31,7 +31,7 @@ function MainMenu({user}) {
 
 		const interval = setInterval(() => {
 			getUsdRate()
-		}, 120000);
+		}, 1200000);
 		return () => clearInterval(interval);
 	}, []);
 

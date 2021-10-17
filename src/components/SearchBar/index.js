@@ -8,18 +8,8 @@ import { Context } from '../../context';
 function SearchBar({props : {user, codes}}) {
 
 	const { monies } = user;
-
-	const [currencies, setCurrencies] = useState([])
 	const [options, setOptions] = useState([])
-
-	const apiKey = "0b196ddfbe66cabd2fc96fbe"
-
-	const { modalProps, setModalProps } = useContext(Context);
-
-	// useEffect(() => {
-	// 	axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/codes`)
-	// 	.then(({data:{supported_codes}}) => setCurrencies(supported_codes))
-	// }, [])
+	const { modalProps, setModalProps, handleBuy } = useContext(Context);
 
 	const handleChange = ({target:{value}}) => {
 		console.log(codes)
@@ -29,20 +19,6 @@ function SearchBar({props : {user, codes}}) {
 			console.log(options)
 			setOptions( codes.filter(item => item[1].toLowerCase().includes(value.toLowerCase()) ? item : null ) )
 		}
-	}
-
-	const handleBuy = ({name, acr}) => {
-		setModalProps({
-			...modalProps,
-			open: true,
-			buying:true,
-			acrnList:monies.map(money => money.acr),
-			money:{
-				acrn:acr,
-				name:name,
-				fullName:acr + " - " + name
-			}
-		})
 	}
 
 	return (

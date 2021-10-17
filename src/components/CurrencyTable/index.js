@@ -31,35 +31,7 @@ function CurrencyTable({props : {user, usdRate}}) {
 	}, [usdRate])
 
 	const [checkId, setCheckedId] = useState(null);
-	const { modalProps, setModalProps } = useContext(Context);
-
-	const handleBuy = ({name, acr}) => {
-		setModalProps({
-			...modalProps,
-			open: true,
-			buying:true,
-			acrnList:monies.map(money => money.acr),
-			money:{
-				acrn:acr,
-				name:name,
-				fullName:acr + " - " + name
-			}
-		})
-	}
-
-	const handleSell = ({name, acr}) => {
-		setModalProps({
-			...modalProps,
-			open: true,
-			buying:false,
-			acrnList:monies.map(money => money.acr),
-			money:{
-				acrn:acr,
-				name:name,
-				fullName:acr + " - " + name
-			}
-		})
-	}
+	const { modalProps, setModalProps, handleBuy, handleSell } = useContext(Context);
 
 	return (
 		<div className="currency-table-wrapper">

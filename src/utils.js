@@ -18,7 +18,7 @@ const updateUser = (user) => {
 
 	const users = JSON.parse(localStorage.getItem("users"))
 	const index = localStorage.getItem("authenticated")
-	users.splice(index, 0, user)
+	users.splice(index, 1, user)
 
 	localStorage.setItem("users", JSON.stringify(users))
 }

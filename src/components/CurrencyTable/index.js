@@ -83,7 +83,7 @@ function CurrencyTable({props : {user, usdRate}}) {
 							<td></td>
 							<td>USD</td>
 							<td>Total Worth</td>
-							<td>{totalWorth}</td>
+							<td>{String(totalWorth)}</td>
 							<td></td>
 						</tr>
 					}

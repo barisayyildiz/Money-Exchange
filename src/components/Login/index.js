@@ -29,17 +29,18 @@ function FormExample() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    }else{
+			const users = JSON.parse(localStorage.getItem("users"));
+			users.forEach((user, index) => {
+				if(user.username === username && user.password === password){
+					setAuthenticated(index)
+					history.push("/menu")
+				}
+			})
 
-		const users = JSON.parse(localStorage.getItem("users"));
-		users.forEach((user, index) => {
-			if(user.username === username && user.password === password){
-				setAuthenticated(index)
-				history.push("/menu")
-			}
-		})
+			setValidated(true);
+		}
 
-    setValidated(true);
   };
 
   return (

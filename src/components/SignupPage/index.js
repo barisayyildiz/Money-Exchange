@@ -23,27 +23,29 @@ function SignUp() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    }else{
+			const users = JSON.parse(localStorage.getItem("users"));
+			const newUser = {
+				username,
+				password,
+				monies:[
+					{
+						acr:"USD",
+						name:"United States Dollar",
+						amount:10000
+					}
+				]
+			}
+			if(users){
+				localStorage.setItem("users", JSON.stringify([...users, newUser]))
+			}else{
+				localStorage.setItem("users", JSON.stringify([newUser]))
+			}
 
-		const users = JSON.parse(localStorage.getItem("users"));
-		const newUser = {
-			username,
-			password,
-			money:[
-				{
-					USD:10000
-				}
-			]
+			history.push("/login");
+			setValidated(true);
 		}
-		if(users !== undefined){
-			localStorage.setItem("users", JSON.stringify([...users, newUser]))
-		}else{
-			localStorage.setItem("users", JSON.stringify([newUser]))
-		}
 
-		history.push("/login");
-
-    setValidated(true);
   };
 
   return (

@@ -1,27 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './style.scss'
 
 import { Table, ButtonGroup, ToggleButton, Button } from 'react-bootstrap'
+import { Context } from '../../context';
 
-function CurrencyTable() {
+function CurrencyTable({user}) {
 
-	const monies = [
-		{
-			acr:"TRY",
-			name:"Turkish Lira",
-			amount:45000
-		},
-		{
-			acr:"USD",
-			name:"United States Dollar",
-			amount:9000
-		},
-		{
-			acr:"AED",
-			name:"UAE Dirham",
-			amount:600
-		}
-	]
+	console.log(user);
+	const { monies } = user;
+
+	// const { monies } = user;
+
+	// const monies = [
+	// 	{
+	// 		acr:"TRY",
+	// 		name:"Turkish Lira",
+	// 		amount:45000
+	// 	},
+	// 	{
+	// 		acr:"USD",
+	// 		name:"United States Dollar",
+	// 		amount:9000
+	// 	},
+	// 	{
+	// 		acr:"AED",
+	// 		name:"UAE Dirham",
+	// 		amount:600
+	// 	}
+	// ]
 
 	const radios = [
     { name: 'Active', value: '1' },
@@ -32,6 +38,35 @@ function CurrencyTable() {
 	// const [checked, setChecked] = useState(false);
   // const [radioValue, setRadioValue] = useState('1');
 	const [checkId, setCheckedId] = useState(null);
+
+	const { modalProps, setModalProps } = useContext(Context);
+	console.log(modalProps);
+
+	const handleBuy = ({name, acr}) => {
+		setModalProps({
+			...modalProps,
+			open: true,
+			buying:true,
+			acrnList:monies.map(money => money.acr),
+			money:{
+				acrn:acr,
+				fullName:acr + " - " + name
+			}
+		})
+	}
+
+	const handleSell = ({name, acr}) => {
+		setModalProps({
+			...modalProps,
+			open: true,
+			buying:false,
+			acrnList:monies.map(money => money.acr),
+			money:{
+				acrn:acr,
+				fullName:acr + " - " + name
+			}
+		})
+	}
 
 	return (
 		<div className="currency-table-wrapper">
@@ -68,45 +103,13 @@ function CurrencyTable() {
 									<td>{money.name}</td>
 									<td>{money.amount}</td>
 									<td>
-										<Button disabled={index != checkId ? true : false} variant="success" >BUY</Button>
-										<Button disabled={index != checkId ? true : false} variant="danger" >SELL</Button>
-										{/* <Button disabled variant="success" style={ index != checkId ? {opacity:"0.6"} : {} } >BUY</Button>
-										<Button variant="danger" style={ index != checkId ? {opacity:"0.6"} : {} } >SELL</Button> */}
+										<Button onClick={() => handleBuy(money)} disabled={index != checkId ? true : false} variant="success" >BUY</Button>
+										<Button onClick={() => handleSell(money)} disabled={index != checkId ? true : false} variant="danger" >SELL</Button>
 									</td>
 								</tr>
 							)
 						})
 					}
-					{/* <tr>
-						<td><input type="checkbox"></input></td>
-						<td>TRY</td>
-						<td>Turkish Lira</td>
-						<td>₺45,000</td>
-						<td>
-							<button>BUY</button>
-							<button>SELL</button>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></input></td>
-						<td>USD</td>
-						<td>United States Dollar</td>
-						<td>$9000</td>
-						<td>
-							<button>BUY</button>
-							<button>SELL</button>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></input></td>
-						<td>AED</td>
-						<td>UAE Dirham</td>
-						<td>AED 600</td>
-						<td>
-							<button>BUY</button>
-							<button>SELL</button>
-						</td>
-					</tr> */}
 				</tbody>
 			</Table>			
 		</div>

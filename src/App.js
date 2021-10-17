@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 
@@ -11,10 +11,13 @@ import SearchBar from './components/SearchBar'
 import ExchangeModal from './components/ExchangeModal'
 import CurrencyTable from './components/CurrencyTable'
 
+import TestComp from './components/TestComp'
+
 import {
 	isAuthenticated,
 	setAuthenticated,
-	removeAuthenticated
+	removeAuthenticated,
+	getAllMonies
 } from './utils'
 
 import {
@@ -30,14 +33,10 @@ function App() {
 	const user = isAuthenticated();
 	console.log(user)
 
+
   return (
 		<ContextProvider>
 			<div className="App">
-				{/* <LoginForm></LoginForm> */}
-				{/* <SignupForm></SignupForm> */}
-				{/* <Navbar></Navbar> */}
-				{/* <SearchBar></SearchBar> */}
-				{/* <ExchangeModal></ExchangeModal> */}
 
 				<Switch>
 					<Route exact path='/login' component={ !user ? LoginForm : Navbar}></Route>
@@ -48,7 +47,7 @@ function App() {
 							<>
 								<Route path='/navbar' component={Navbar}></Route>
 								<Route path='/search' component={SearchBar}></Route>
-								<Route path='/table' component={CurrencyTable}></Route>
+								<Route path='/table' component={() => <CurrencyTable user={user} ></CurrencyTable>}></Route>
 							</>
 						) : (
 							<Redirect
@@ -59,6 +58,8 @@ function App() {
 						)
 					}
 				</Switch>
+
+				<ExchangeModal></ExchangeModal>
 
 			</div>
 		</ContextProvider>

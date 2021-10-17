@@ -7,7 +7,6 @@ import { Context } from '../../context';
 function CurrencyTable({props : {user, usdRate}}) {
 
 	const { monies } = user;
-	console.log(usdRate);
 
 	const [rates, setRates] = useState({})
 	const [totalWorth, setTotalWorth] = useState(0);

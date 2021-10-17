@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import './style.scss'
 
 import { Form, ListGroup } from 'react-bootstrap'
+import { Context } from '../../context';
 
-function SearchBar() {
+function SearchBar({user}) {
+
+	const { monies } = user;
 
 	const [currencies, setCurrencies] = useState([])
 	const [options, setOptions] = useState([])
 
 	const apiKey = "0b196ddfbe66cabd2fc96fbe"
+
+	const { modalProps, setModalProps } = useContext(Context);
 
 	useEffect(() => {
 		axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/codes`)
@@ -21,8 +26,23 @@ function SearchBar() {
 		if(value === ""){
 			setOptions([])
 		}else{
+			console.log(options)
 			setOptions( currencies.filter(item => item[1].toLowerCase().includes(value.toLowerCase()) ? item : null ) )
 		}
+	}
+
+	const handleBuy = ({name, acr}) => {
+		setModalProps({
+			...modalProps,
+			open: true,
+			buying:true,
+			acrnList:monies.map(money => money.acr),
+			money:{
+				acrn:acr,
+				name:name,
+				fullName:acr + " - " + name
+			}
+		})
 	}
 
 	return (
@@ -31,9 +51,15 @@ function SearchBar() {
 			<ListGroup className="currency-list">
 				{
 					options != [] && (
-						options.map(option => (
-							<ListGroup.Item>{option.toString().split(",").join(" - ")}</ListGroup.Item>
-						))
+						options.map(option => {
+							const [acr, name] = option
+							return(
+									<ListGroup.Item
+										onClick={() => handleBuy({acr, name})}
+									>{option.toString().split(",").join(" - ")}</ListGroup.Item>
+								)
+							}
+						)
 					)
 				}
 			</ListGroup>		

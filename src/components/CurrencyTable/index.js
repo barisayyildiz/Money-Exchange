@@ -9,26 +9,6 @@ function CurrencyTable({user}) {
 	console.log(user);
 	const { monies } = user;
 
-	// const { monies } = user;
-
-	// const monies = [
-	// 	{
-	// 		acr:"TRY",
-	// 		name:"Turkish Lira",
-	// 		amount:45000
-	// 	},
-	// 	{
-	// 		acr:"USD",
-	// 		name:"United States Dollar",
-	// 		amount:9000
-	// 	},
-	// 	{
-	// 		acr:"AED",
-	// 		name:"UAE Dirham",
-	// 		amount:600
-	// 	}
-	// ]
-
 	const radios = [
     { name: 'Active', value: '1' },
     { name: 'Radio', value: '2' },
@@ -50,6 +30,7 @@ function CurrencyTable({user}) {
 			acrnList:monies.map(money => money.acr),
 			money:{
 				acrn:acr,
+				name:name,
 				fullName:acr + " - " + name
 			}
 		})
@@ -63,6 +44,7 @@ function CurrencyTable({user}) {
 			acrnList:monies.map(money => money.acr),
 			money:{
 				acrn:acr,
+				name:name,
 				fullName:acr + " - " + name
 			}
 		})

@@ -64,9 +64,19 @@ function ExchangeModal() {
 					// dolar azalt
 					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
 					// tl arttır
-					user.monies[user.monies.findIndex(item => item.acr==modalProps.money.acrn)].amount += rates[modalProps.selectedAcrnIndex] * amount
-					updateUser(user)
+					// listede olup olmama durumuna dikkat et
 
+					const index = user.monies.findIndex(item => item.acr==modalProps.money.acrn)
+					if(index !== -1){
+						user.monies[index].amount += rates[modalProps.selectedAcrnIndex] * amount
+					}else{
+						user.monies.push({
+							acr:modalProps.money.acrn,
+							amount:rates[modalProps.selectedAcrnIndex] * amount,
+							name:modalProps.money.name
+						})
+					}
+					updateUser(user)
 					console.log(user);
 
 					// event.preventDefault();

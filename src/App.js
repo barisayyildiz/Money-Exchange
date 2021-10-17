@@ -10,8 +10,7 @@ import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import ExchangeModal from './components/ExchangeModal'
 import CurrencyTable from './components/CurrencyTable'
-
-import TestComp from './components/TestComp'
+import MainMenu from './pages/MainMenu'
 
 import {
 	isAuthenticated,
@@ -45,9 +44,15 @@ function App() {
 						// if user is authenticated
 						user ? (
 							<>
-								<Route path='/navbar' component={Navbar}></Route>
+								<Route path='/'>
+									<MainMenu
+										user={user}
+									></MainMenu>
+								</Route>
+
+								{/* <Route path='/navbar' component={Navbar}></Route>
 								<Route path='/search' component={SearchBar}></Route>
-								<Route path='/table' component={() => <CurrencyTable user={user} ></CurrencyTable>}></Route>
+								<Route path='/table' component={() => <CurrencyTable user={user} ></CurrencyTable>}></Route> */}
 							</>
 						) : (
 							<Redirect

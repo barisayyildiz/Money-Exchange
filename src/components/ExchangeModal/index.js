@@ -17,18 +17,12 @@ function ExchangeModal() {
 	useEffect(() => {
 		
 		if(modalProps.open){
-			console.log("modal is open")
-
 			axios.get(`https://v6.exchangerate-api.com/v6/0b196ddfbe66cabd2fc96fbe/latest/${modalProps.money.acrn}`)
 			.then(({data:{conversion_rates}}) => {
 				const arr = modalProps.acrnList.map(acrn => modalProps.buying ? 1/conversion_rates[acrn] : conversion_rates[acrn])
 				setRates(arr)
 			})
-
-		}else{
-			console.log("modal is closed")
 		}
-
 		
 	}, [modalProps.open])
 
@@ -44,27 +38,14 @@ function ExchangeModal() {
 				const { acrnList, selectedAcrnIndex } = modalProps
 				const user = isAuthenticated();
 				const acrn = acrnList[selectedAcrnIndex]
-
-				// dolar -> tl
-				// elindeki dolar miktarına bakılır
 				const total = user.monies.find(money => money.acr == acrn).amount
-
-				console.log(user);
-				console.log(acrn);
-				console.log(rates[modalProps.selectedAcrnIndex])
-
-				// event.preventDefault();
-				// event.stopPropagation();
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					// dolar azalt
 					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
-					// tl arttır
-					// listede olup olmama durumuna dikkat et
 
 					const index = user.monies.findIndex(item => item.acr==modalProps.money.acrn)
 					if(index !== -1){
@@ -77,67 +58,29 @@ function ExchangeModal() {
 						})
 					}
 					updateUser(user)
-					console.log(user);
-
-					// event.preventDefault();
- 			  	// event.stopPropagation();
-
 				}
 
 			}else{
-				// kullanıcı dolar satıyor
-
 				const { acrnList, selectedAcrnIndex } = modalProps
 				const user = isAuthenticated();
-				// const acrn = acrnList[selectedAcrnIndex]
 				const acrn = modalProps.money.acrn;
-
-				// dolar -> tl
-				// elindeki dolar miktarına bakılır
 				const total = user.monies.find(money => money.acr == acrn).amount
-
-				console.log(user);
-				console.log(acrn);
-				console.log(rates[modalProps.selectedAcrnIndex])
-				console.log(total)
-				console.log(modalProps.acrnList[modalProps.selectedAcrnIndex])
-
-				console.log(user.monies[user.monies.findIndex(item => item.acr==modalProps.acrnList[modalProps.selectedAcrnIndex])].amount)
-				console.log(rates[modalProps.selectedAcrnIndex])
-				
-
-				// event.preventDefault();
-				// event.stopPropagation();
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					// dolar azalt
 					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
-					// tl arttır
 					user.monies[user.monies.findIndex(item => item.acr==modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
 					updateUser(user)
-
-					console.log(user);
-
-					// event.preventDefault();
- 			  	// event.stopPropagation();
-
 				}
-				
-
 			}
-
-
-
 		}
 	}
 
 	return (
 		<div className="modal-wrapper">
-
 			<Modal show={modalProps.open} onHide={() => {
 				setModalProps({
 					...modalProps,
@@ -148,7 +91,6 @@ function ExchangeModal() {
 					<Modal.Title>{ modalProps.buying ? "Buying " : "Selling " } {modalProps.money.acrn}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-
 					<Container className="form-exchange-header">
 						<Row className="currency-row">
 
@@ -161,7 +103,6 @@ function ExchangeModal() {
 									</Col>
 								))
 							}
-						
 						</Row>
 						<Row>
 							{
@@ -176,7 +117,7 @@ function ExchangeModal() {
 							<Col>Rate: {rates[modalProps.selectedAcrnIndex]}</Col>
 						</Row>
 					</Container>
-					
+
 					<Form className="exchange-form" onSubmit={handleSubmit}>
 						<Form.Group as={Row} className="mb-3" controlId="formPlaintextAmount">
 							<Form.Label column sm="2">

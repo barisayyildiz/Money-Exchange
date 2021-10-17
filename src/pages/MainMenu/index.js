@@ -23,9 +23,8 @@ function MainMenu({user}) {
 		const {data:{conversion_rates}} = await axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`)
 		setUsdRate(conversion_rates)
 	}
-	// 
 
-	useEffect(async () => {
+	useEffect(() => {
 		getCurrencyCodes()
 		getUsdRate()
 
@@ -39,7 +38,8 @@ function MainMenu({user}) {
 		<div>
 			<Navbar></Navbar>
 			<SearchBar props={{
-				user, codes
+				user,
+				codes
 			}}></SearchBar>
 			<CurrencyTable props={{
 				user,

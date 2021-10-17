@@ -5,9 +5,7 @@ import { Table, ButtonGroup, ToggleButton, Button, Badge } from 'react-bootstrap
 import { Context } from '../../context';
 
 function CurrencyTable({props : {user, usdRate}}) {
-
 	const { monies } = user;
-
 	const [rates, setRates] = useState({})
 	const [totalWorth, setTotalWorth] = useState(0);
 	const [lastUpdated, setLastUpdated] = useState(String(new Date()))
@@ -51,7 +49,6 @@ function CurrencyTable({props : {user, usdRate}}) {
 								<tr
 									className="align-items-center"
 								>
-									{/* <td><input type="checkbox"></input></td> */}
 									<td>
 									<ToggleButton
 										id={`toggle-check-${index}`}
@@ -90,15 +87,11 @@ function CurrencyTable({props : {user, usdRate}}) {
 							<td></td>
 						</tr>
 					}
-
 				</tbody>
 			</Table>	
 				
 			<h3
-				style={{
-					textAlign:'left',
-					margin:'20px'
-				}}
+				className="last-update-badge"
 			>
 				<Badge>LAST UPDATED {lastUpdated}</Badge>
 			</h3>

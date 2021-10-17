@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import './style.scss'
-
 import { useHistory } from "react-router-dom";
-
 import { isAuthenticated, setAuthenticated } from '../../utils'
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, InputGroup } from 'react-bootstrap';
@@ -46,11 +43,9 @@ function SignUp() {
 			}else{
 				localStorage.setItem("users", JSON.stringify([newUser]))
 			}
-
 			history.push("/login");
 			setValidated(true);
 		}
-
   };
 
   return (
@@ -89,10 +84,8 @@ function SignUp() {
 							</Form.Control.Feedback>
 						</InputGroup>
 					</Form.Group>
-				
 					<Button className="mb-3" type="submit">Submit form</Button>
 				</Col>
-
 			</Form>
 			<a href="/login">Already have an account?</a>
 		</div>

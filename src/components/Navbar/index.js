@@ -1,11 +1,7 @@
 import React from 'react'
-
 import { Container, Row, Col, Navbar, Nav, NavDropdown } from 'react-bootstrap'
-
 import { Link } from 'react-router-dom'
-
 import { isAuthenticated, setAuthenticated, removeAuthenticated } from '../../utils'
-
 import { useHistory } from "react-router-dom";
 
 function MyNavbar() {

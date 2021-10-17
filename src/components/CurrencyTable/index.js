@@ -1,26 +1,37 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './style.scss'
 
-import { Table, ButtonGroup, ToggleButton, Button } from 'react-bootstrap'
+import { Table, ButtonGroup, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
 
-function CurrencyTable({user}) {
+function CurrencyTable({props : {user, usdRate}}) {
 
-	console.log(user);
 	const { monies } = user;
+	console.log(usdRate);
 
-	const radios = [
-    { name: 'Active', value: '1' },
-    { name: 'Radio', value: '2' },
-    { name: 'Radio', value: '3' },
-  ];
+	const [rates, setRates] = useState({})
+	const [totalWorth, setTotalWorth] = useState(0);
+	const [lastUpdated, setLastUpdated] = useState(String(new Date()))
 
-	// const [checked, setChecked] = useState(false);
-  // const [radioValue, setRadioValue] = useState('1');
+	useEffect(() => {
+		console.log(`total worth : ${totalWorth}`)
+	},[totalWorth])
+
+	useEffect(() => {
+		setRates(rates)
+		let total = 0;
+		monies.forEach(money => {
+			let amount = money.amount;
+			let acrn = money.acr;
+			total += amount / usdRate[acrn];
+		})
+		setTotalWorth(total)
+		setLastUpdated(String(new Date()))
+		console.log("usd rate has changed")
+	}, [usdRate])
+
 	const [checkId, setCheckedId] = useState(null);
-
 	const { modalProps, setModalProps } = useContext(Context);
-	console.log(modalProps);
 
 	const handleBuy = ({name, acr}) => {
 		setModalProps({
@@ -97,8 +108,30 @@ function CurrencyTable({user}) {
 							)
 						})
 					}
+					{
+						<tr
+							className="align-items-center"
+						>
+							<td></td>
+							<td>USD</td>
+							<td>Total Worth</td>
+							<td>{totalWorth}</td>
+							<td></td>
+						</tr>
+					}
+
 				</tbody>
-			</Table>			
+			</Table>	
+				
+			<h3
+				style={{
+					textAlign:'left',
+					margin:'20px'
+				}}
+			>
+				<Badge>LAST UPDATED {lastUpdated}</Badge>
+			</h3>
+
 		</div>
 	)
 }

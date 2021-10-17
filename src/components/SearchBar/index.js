@@ -5,7 +5,7 @@ import './style.scss'
 import { Form, ListGroup } from 'react-bootstrap'
 import { Context } from '../../context';
 
-function SearchBar({user}) {
+function SearchBar({props : {user, codes}}) {
 
 	const { monies } = user;
 
@@ -16,18 +16,18 @@ function SearchBar({user}) {
 
 	const { modalProps, setModalProps } = useContext(Context);
 
-	useEffect(() => {
-		axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/codes`)
-		.then(({data:{supported_codes}}) => setCurrencies(supported_codes))
-	}, [])
+	// useEffect(() => {
+	// 	axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/codes`)
+	// 	.then(({data:{supported_codes}}) => setCurrencies(supported_codes))
+	// }, [])
 
 	const handleChange = ({target:{value}}) => {
-		console.log(currencies)
+		console.log(codes)
 		if(value === ""){
 			setOptions([])
 		}else{
 			console.log(options)
-			setOptions( currencies.filter(item => item[1].toLowerCase().includes(value.toLowerCase()) ? item : null ) )
+			setOptions( codes.filter(item => item[1].toLowerCase().includes(value.toLowerCase()) ? item : null ) )
 		}
 	}
 

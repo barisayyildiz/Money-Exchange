@@ -37,21 +37,21 @@ function ExchangeModal() {
 				const { acrnList, selectedAcrnIndex } = modalProps
 				const user = isAuthenticated();
 				const acrn = acrnList[selectedAcrnIndex]
-				const total = user.monies.find(money => money.acr === acrn).amount
+				const total = user.money.find(money => money.acrn === acrn).amount
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					user.monies[user.monies.findIndex(item => item.acr===acrn)].amount -= amount
+					user.money[user.money.findIndex(item => item.acrn===acrn)].amount -= amount
 
-					const index = user.monies.findIndex(item => item.acr===modalProps.money.acrn)
+					const index = user.money.findIndex(item => item.acrn===modalProps.money.acrn)
 					if(index !== -1){
-						user.monies[index].amount += rates[modalProps.selectedAcrnIndex] * amount
+						user.money[index].amount += rates[modalProps.selectedAcrnIndex] * amount
 					}else{
-						user.monies.push({
-							acr:modalProps.money.acrn,
+						user.money.push({
+							acrn:modalProps.money.acrn,
 							amount:rates[modalProps.selectedAcrnIndex] * amount,
 							name:modalProps.money.name
 						})
@@ -62,15 +62,15 @@ function ExchangeModal() {
 			}else{
 				const user = isAuthenticated();
 				const acrn = modalProps.money.acrn;
-				const total = user.monies.find(money => money.acr === acrn).amount
+				const total = user.money.find(money => money.acrn === acrn).amount
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					user.monies[user.monies.findIndex(item => item.acr===acrn)].amount -= amount
-					user.monies[user.monies.findIndex(item => item.acr===modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
+					user.money[user.money.findIndex(item => item.acrn===acrn)].amount -= amount
+					user.money[user.money.findIndex(item => item.acrn===modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
 					updateUser(user)
 				}
 			}

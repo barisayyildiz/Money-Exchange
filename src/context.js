@@ -20,32 +20,33 @@ const ContextProvider = (props) => {
 		}
 	})
 
-	const handleBuy = ({name, acr}) => {
-		const { monies } = isAuthenticated();
+	const handleBuy = ({name, acrn}) => {
+		const { money } = isAuthenticated();
+		console.log(money);
 		setModalProps({
 			...modalProps,
 			open: true,
 			buying:true,
-			acrnList:monies.map(money => money.acr),
+			acrnList:money.map(money => money.acrn),
 			money:{
-				acrn:acr,
+				acrn:acrn,
 				name:name,
-				fullName:acr + " - " + name
+				fullName:acrn + " - " + name
 			}
 		})
 	}
 
-	const handleSell = ({name, acr}) => {
-		const { monies } = isAuthenticated();
+	const handleSell = ({name, acrn}) => {
+		const { money } = isAuthenticated();
 		setModalProps({
 			...modalProps,
 			open: true,
 			buying:false,
-			acrnList:monies.map(money => money.acr),
+			acrnList:money.map(money => money.acrn),
 			money:{
-				acrn:acr,
+				acrn:acrn,
 				name:name,
-				fullName:acr + " - " + name
+				fullName:acrn + " - " + name
 			}
 		})
 	}

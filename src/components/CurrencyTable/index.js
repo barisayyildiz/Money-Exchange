@@ -8,7 +8,7 @@ import {
 } from '../../utils'
 
 function CurrencyTable({props : {usdRate}}) {
-	const { monies } = isAuthenticated();
+	const { money } = isAuthenticated();
 	const [rates, setRates] = useState({})
 	const [totalWorth, setTotalWorth] = useState(0);
 	const [lastUpdated, setLastUpdated] = useState(String(new Date()))
@@ -20,9 +20,9 @@ function CurrencyTable({props : {usdRate}}) {
 	useEffect(() => {
 		setRates(rates)
 		let total = 0;
-		monies.forEach(money => {
+		money.forEach(money => {
 			let amount = money.amount;
-			let acrn = money.acr;
+			let acrn = money.acrn;
 			total += amount / usdRate[acrn];
 		})
 		setTotalWorth(total)
@@ -47,7 +47,7 @@ function CurrencyTable({props : {usdRate}}) {
 				</thead>
 				<tbody>
 					{
-						monies.map((money, index) => {
+						money.map((money, index) => {
 							return(
 								<tr
 									className="align-items-center"
@@ -68,7 +68,7 @@ function CurrencyTable({props : {usdRate}}) {
 									</ToggleButton>
 
 									</td>
-									<td>{money.acr}</td>
+									<td>{money.acrn}</td>
 									<td>{money.name}</td>
 									<td>{money.amount}</td>
 									<td>

@@ -9,7 +9,7 @@ const isAuthenticated = () => {
 
 const setAuthenticated = index => localStorage.setItem("authenticated", index)
 const removeAuthenticated = () => localStorage.removeItem("authenticated")
-const getAllMonies = () => JSON.parse(localStorage.getItem("users"))[localStorage.getItem("authenticated")]
+const getMoney = () => JSON.parse(localStorage.getItem("users"))[localStorage.getItem("authenticated")]
 const updateUser = (user) => {
 	const users = JSON.parse(localStorage.getItem("users"))
 	const index = localStorage.getItem("authenticated")
@@ -21,6 +21,6 @@ export {
 	isAuthenticated,
 	setAuthenticated,
 	removeAuthenticated,
-	getAllMonies,
+	getMoney,
 	updateUser
 }

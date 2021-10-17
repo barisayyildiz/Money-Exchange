@@ -24,14 +24,14 @@ function SignUp() {
 			const newUser = {
 				username,
 				password,
-				monies:[
+				money:[
 					{
-						acr:"USD",
+						acrn:"USD",
 						name:"United States Dollar",
 						amount:10000
 					},
 					{
-						acr:"TRY",
+						acrn:"TRY",
 						name:"Turkish Lira",
 						amount:50000
 					}

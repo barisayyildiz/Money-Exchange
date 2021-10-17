@@ -7,7 +7,7 @@ import { setAuthenticated } from '../../utils'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Row, Col, InputGroup } from 'react-bootstrap';
+import { Row, Col, InputGroup, Alert } from 'react-bootstrap';
 
 import { Context } from '../../context'
 
@@ -21,22 +21,26 @@ function FormExample() {
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("")
+	const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+		setValidated(true);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }else{
-			const users = JSON.parse(localStorage.getItem("users"));
-			users.forEach((user, index) => {
-				if(user.username === username && user.password === password){
-					setAuthenticated(index)
-					history.push("/menu")
-				}
-			})
 
-			setValidated(true);
+			const users = JSON.parse(localStorage.getItem("users"));
+			const index = users.findIndex(user => user.username == username && user.password === password)
+			if(index < 0){
+				setAlertMessage("User not found...")
+				event.preventDefault();
+ 		    event.stopPropagation();
+			}else{
+				setAuthenticated(index)
+				history.push("/menu")
+			}
 		}
 
   };
@@ -82,6 +86,12 @@ function FormExample() {
 				</Col>
 
 			</Form>
+
+			<Alert
+				variant="danger"
+				show={Boolean(alertMessage)}
+			>{alertMessage}</Alert>
+
 			<a href="/signup">Don't have an account?</a>
 		</div>
   );

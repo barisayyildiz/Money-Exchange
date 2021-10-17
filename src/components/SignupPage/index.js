@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import './style.scss'
 import { useHistory } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Row, Col, InputGroup } from 'react-bootstrap';
+import { Row, Col, InputGroup, Alert, Button, Form } from 'react-bootstrap';
 
 
 function SignUp() {
@@ -12,38 +10,50 @@ function SignUp() {
 	
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("")
+	const [password, setPassword] = useState("");
+	const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+		setValidated(true);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }else{
 			const users = JSON.parse(localStorage.getItem("users"));
-			const newUser = {
-				username,
-				password,
-				money:[
-					{
-						acrn:"USD",
-						name:"United States Dollar",
-						amount:10000
-					},
-					{
-						acrn:"TRY",
-						name:"Turkish Lira",
-						amount:50000
-					}
-				]
-			}
-			if(users){
-				localStorage.setItem("users", JSON.stringify([...users, newUser]))
+			
+			if(password.length < 6){
+				setAlertMessage("Password is too short...")
+				event.preventDefault();
+ 		  	event.stopPropagation();
+			}else if(users.find(user => user.username===username)){
+				setAlertMessage("Username is already taken...")
+				event.preventDefault();
+ 		  	event.stopPropagation();
 			}else{
-				localStorage.setItem("users", JSON.stringify([newUser]))
-			}
-			history.push("/login");
-			setValidated(true);
+				const newUser = {
+					username,
+					password,
+					money:[
+						{
+							acrn:"USD",
+							name:"United States Dollar",
+							amount:10000
+						},
+						{
+							acrn:"TRY",
+							name:"Turkish Lira",
+							amount:50000
+						}
+					]
+				}
+				if(users){
+					localStorage.setItem("users", JSON.stringify([...users, newUser]))
+				}else{
+					localStorage.setItem("users", JSON.stringify([newUser]))
+				}
+				history.push("/login");
+			}			
 		}
   };
 
@@ -86,6 +96,12 @@ function SignUp() {
 					<Button className="mb-3" type="submit">Submit form</Button>
 				</Col>
 			</Form>
+
+			<Alert
+				variant="danger"
+				show={Boolean(alertMessage)}
+			>{alertMessage}</Alert>
+
 			<a href="/login">Already have an account?</a>
 		</div>
   );

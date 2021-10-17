@@ -1,8 +1,5 @@
-import React, { createContext, useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.scss';
-
-import { Context, ContextProvider } from './context'
 
 import LoginForm from './components/Login'
 import SignupForm from './components/SignupPage'
@@ -27,7 +24,15 @@ function App() {
 			<Switch>
 				<Route
 					path={['/login', '/signup']}
-					render={() => !user ? <LoginForm></LoginForm> : <Redirect	to={{pathname: "/"}}/>}
+					render={({location:{pathname}}) => {
+						if(user){
+							return <Redirect	to={{pathname: "/"}}/>
+						}else if(pathname == '/login'){
+							return <LoginForm></LoginForm>
+						}else if(pathname == '/signup'){
+							return <SignupForm></SignupForm>
+						}
+					}}
 				>
 				</Route>
 				{

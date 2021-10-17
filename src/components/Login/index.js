@@ -3,7 +3,7 @@ import './style.scss'
 
 import { useHistory } from "react-router-dom";
 
-import { isAuthenticated, setAuthenticated } from '../../utils'
+import { setAuthenticated } from '../../utils'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';

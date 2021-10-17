@@ -27,8 +27,7 @@ function ExchangeModal() {
 	}, [modalProps.open])
 
 	const handleSubmit = (event) => {
-		const form = event.currentTarget;
-		if(modalProps.selectedAcrnIndex == -1 || amount <= 0){
+		if(modalProps.selectedAcrnIndex === -1 || amount <= 0){
 			setAlertMessage("Select an acronym and enter an amount greater than 0")
 			event.preventDefault();
       event.stopPropagation();
@@ -38,16 +37,16 @@ function ExchangeModal() {
 				const { acrnList, selectedAcrnIndex } = modalProps
 				const user = isAuthenticated();
 				const acrn = acrnList[selectedAcrnIndex]
-				const total = user.monies.find(money => money.acr == acrn).amount
+				const total = user.monies.find(money => money.acr === acrn).amount
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
+					user.monies[user.monies.findIndex(item => item.acr===acrn)].amount -= amount
 
-					const index = user.monies.findIndex(item => item.acr==modalProps.money.acrn)
+					const index = user.monies.findIndex(item => item.acr===modalProps.money.acrn)
 					if(index !== -1){
 						user.monies[index].amount += rates[modalProps.selectedAcrnIndex] * amount
 					}else{
@@ -61,18 +60,17 @@ function ExchangeModal() {
 				}
 
 			}else{
-				const { acrnList, selectedAcrnIndex } = modalProps
 				const user = isAuthenticated();
 				const acrn = modalProps.money.acrn;
-				const total = user.monies.find(money => money.acr == acrn).amount
+				const total = user.monies.find(money => money.acr === acrn).amount
 
 				if(amount > total){
 					setAlertMessage("Insufficient Fund")
 					event.preventDefault();
  			  	event.stopPropagation();
 				}else{
-					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
-					user.monies[user.monies.findIndex(item => item.acr==modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
+					user.monies[user.monies.findIndex(item => item.acr===acrn)].amount -= amount
+					user.monies[user.monies.findIndex(item => item.acr===modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
 					updateUser(user)
 				}
 			}
@@ -97,7 +95,7 @@ function ExchangeModal() {
 							{
 								modalProps.acrnList.map((acrn, index) => (
 									<Col md="auto" className="currency">
-										<Button variant={ index == modalProps.selectedAcrnIndex ? "success" : "light" } onClick={() => setModalProps({...modalProps, selectedAcrnIndex:index})}>
+										<Button variant={ index === modalProps.selectedAcrnIndex ? "success" : "light" } onClick={() => setModalProps({...modalProps, selectedAcrnIndex:index})}>
 											{acrn}
 										</Button>
 									</Col>

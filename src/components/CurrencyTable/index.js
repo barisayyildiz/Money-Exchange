@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import './style.scss'
 
-import { Table, ButtonGroup, ToggleButton, Button, Badge } from 'react-bootstrap'
+import { Table, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
 
 function CurrencyTable({props : {user, usdRate}}) {
@@ -28,7 +28,7 @@ function CurrencyTable({props : {user, usdRate}}) {
 	}, [usdRate])
 
 	const [checkId, setCheckedId] = useState(null);
-	const { modalProps, setModalProps, handleBuy, handleSell } = useContext(Context);
+	const { handleBuy, handleSell } = useContext(Context);
 
 	return (
 		<div className="currency-table-wrapper">
@@ -54,13 +54,13 @@ function CurrencyTable({props : {user, usdRate}}) {
 										id={`toggle-check-${index}`}
 										type="checkbox"
 										variant="outline-primary"
-										checked={index == checkId}
+										checked={index === checkId}
 										value={index}
-										onChange={(e) => checkId == e.currentTarget.value ? setCheckedId(null) : setCheckedId(e.currentTarget.value)}
+										onChange={(e) => checkId === e.currentTarget.value ? setCheckedId(null) : setCheckedId(Number(e.currentTarget.value))}
 										className="active-currency-toggle"
 									>
 										{
-											index == checkId ? "X" : ""
+											index === checkId ? "X" : ""
 										}
 									</ToggleButton>
 
@@ -69,8 +69,8 @@ function CurrencyTable({props : {user, usdRate}}) {
 									<td>{money.name}</td>
 									<td>{money.amount}</td>
 									<td>
-										<Button onClick={() => handleBuy(money)} disabled={index != checkId ? true : false} variant="success" >BUY</Button>
-										<Button onClick={() => handleSell(money)} disabled={index != checkId ? true : false} variant="danger" >SELL</Button>
+										<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
+										<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
 									</td>
 								</tr>
 							)

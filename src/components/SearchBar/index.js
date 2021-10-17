@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios';
+import React, { useState, useContext } from 'react'
 import './style.scss'
 import { Form, ListGroup } from 'react-bootstrap'
 import { Context } from '../../context';
 
 function SearchBar({props : {user, codes}}) {
 
-	const { monies } = user;
 	const [options, setOptions] = useState([])
-	const { modalProps, setModalProps, handleBuy } = useContext(Context);
+	const { handleBuy } = useContext(Context);
 
 	const handleChange = ({target:{value}}) => {
 		console.log(codes)
@@ -25,12 +23,12 @@ function SearchBar({props : {user, codes}}) {
 			<Form.Control type="text" placeholder="Search" onChange={e => handleChange(e)} />
 			<ListGroup className="currency-list">
 				{
-					options != [] && (
+					options !== [] && (
 						options.map(option => {
-							const [acr, name] = option
+							const [acrn, name] = option
 							return(
 									<ListGroup.Item
-										onClick={() => handleBuy({acr, name})}
+										onClick={() => handleBuy({acrn, name})}
 									>{option.toString().split(",").join(" - ")}</ListGroup.Item>
 								)
 							}

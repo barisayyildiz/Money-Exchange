@@ -27,9 +27,9 @@ function App() {
 					render={({location:{pathname}}) => {
 						if(user){
 							return <Redirect	to={{pathname: "/"}}/>
-						}else if(pathname == '/login'){
+						}else if(pathname === '/login'){
 							return <LoginForm></LoginForm>
-						}else if(pathname == '/signup'){
+						}else if(pathname === '/signup'){
 							return <SignupForm></SignupForm>
 						}
 					}}

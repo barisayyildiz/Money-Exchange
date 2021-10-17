@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom'
 
 import { isAuthenticated, setAuthenticated, removeAuthenticated } from '../../utils'
 
+import { useHistory } from "react-router-dom";
+
 function MyNavbar() {
 
 	const user = isAuthenticated();
+	let history = useHistory();
 
 	return (
 		<div className="navbar-wrapper">
@@ -25,8 +28,10 @@ function MyNavbar() {
 								Signed in as: {user.username}
 							</Navbar.Text>
 							<Navbar.Text>
-								<Link to="/login" onClick={() => removeAuthenticated()}>Logout</Link>
-								{/* <a href="#login">Logout</a> */}
+								<Link to="/login" onClick={() => {
+									removeAuthenticated()
+									history.push("/login");
+								}}>Logout</Link>
 							</Navbar.Text>
 						</div>
 					</Navbar.Collapse>

@@ -2,11 +2,16 @@
 
 .searchbar-wrapper{
 	width: 50%;
-	margin: 100px auto;
+	margin: 20px auto;
+	position: relative;
+	display: flex;
+	justify-content: center;
 
 	.list-group{
 		width: 90%;
 		margin: 0px auto;
+		position: absolute;
+		top: 100%;
 
 		.list-group-item{
 

@@ -154,7 +154,7 @@ function ExchangeModal() {
 
 							{
 								modalProps.acrnList.map((acrn, index) => (
-									<Col md="auto" className="currency from">
+									<Col md="auto" className="currency">
 										<Button variant={ index == modalProps.selectedAcrnIndex ? "success" : "light" } onClick={() => setModalProps({...modalProps, selectedAcrnIndex:index})}>
 											{acrn}
 										</Button>
@@ -183,7 +183,7 @@ function ExchangeModal() {
 								Amount
 							</Form.Label>
 							<Col sm="10">
-								<Form.Control required type="number" onChange={({target:{value}}) => setAmount(Number(value))} />
+								<Form.Control step="0.001" required type="number" onChange={({target:{value}}) => setAmount(Number(value))} />
 							</Col>
 						</Form.Group>
 						<Button variant="primary" type="submit">

@@ -66,7 +66,9 @@ function CurrencyTable({user}) {
 					{
 						monies.map((money, index) => {
 							return(
-								<tr>
+								<tr
+									className="align-items-center"
+								>
 									{/* <td><input type="checkbox"></input></td> */}
 									<td>
 									<ToggleButton
@@ -76,8 +78,11 @@ function CurrencyTable({user}) {
 										checked={index == checkId}
 										value={index}
 										onChange={(e) => checkId == e.currentTarget.value ? setCheckedId(null) : setCheckedId(e.currentTarget.value)}
+										className="active-currency-toggle"
 									>
-										Checked
+										{
+											index == checkId ? "X" : ""
+										}
 									</ToggleButton>
 
 									</td>

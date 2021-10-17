@@ -49,10 +49,6 @@ function App() {
 										user={user}
 									></MainMenu>
 								</Route>
-
-								{/* <Route path='/navbar' component={Navbar}></Route>
-								<Route path='/search' component={SearchBar}></Route>
-								<Route path='/table' component={() => <CurrencyTable user={user} ></CurrencyTable>}></Route> */}
 							</>
 						) : (
 							<Redirect
@@ -63,8 +59,6 @@ function App() {
 						)
 					}
 				</Switch>
-
-				<ExchangeModal></ExchangeModal>
 
 			</div>
 		</ContextProvider>

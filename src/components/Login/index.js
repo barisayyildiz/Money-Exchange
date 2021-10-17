@@ -18,8 +18,6 @@ function FormExample() {
 
 	const context = useContext(Context);
 
-	console.log(context);
-
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("")

@@ -21,10 +21,10 @@ function MyNavbar() {
 							flexDirection:'column'
 						}}>
 							<Navbar.Text>
-								Signed in as: {user.username}
+								Welcome, {user.username}
 							</Navbar.Text>
 							<Navbar.Text>
-								<Link to="/login" onClick={() => {
+								<Link to="/login" style={{ textDecoration: 'none' }} onClick={() => {
 									removeAuthenticated()
 									history.push("/login");
 								}}>Logout</Link>

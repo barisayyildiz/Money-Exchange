@@ -64,7 +64,7 @@ function ExchangeModal() {
 					// dolar azalt
 					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
 					// tl arttır
-					user.monies[user.monies.findIndex(item => item.acr==modalProps.money.acrn)].amount += rates[modalProps.selectedAcrnIndex]
+					user.monies[user.monies.findIndex(item => item.acr==modalProps.money.acrn)].amount += rates[modalProps.selectedAcrnIndex] * amount
 					updateUser(user)
 
 					console.log(user);
@@ -73,6 +73,50 @@ function ExchangeModal() {
  			  	// event.stopPropagation();
 
 				}
+
+			}else{
+				// kullanıcı dolar satıyor
+
+				const { acrnList, selectedAcrnIndex } = modalProps
+				const user = isAuthenticated();
+				// const acrn = acrnList[selectedAcrnIndex]
+				const acrn = modalProps.money.acrn;
+
+				// dolar -> tl
+				// elindeki dolar miktarına bakılır
+				const total = user.monies.find(money => money.acr == acrn).amount
+
+				console.log(user);
+				console.log(acrn);
+				console.log(rates[modalProps.selectedAcrnIndex])
+				console.log(total)
+				console.log(modalProps.acrnList[modalProps.selectedAcrnIndex])
+
+				console.log(user.monies[user.monies.findIndex(item => item.acr==modalProps.acrnList[modalProps.selectedAcrnIndex])].amount)
+				console.log(rates[modalProps.selectedAcrnIndex])
+				
+
+				// event.preventDefault();
+				// event.stopPropagation();
+
+				if(amount > total){
+					setAlertMessage("Insufficient Fund")
+					event.preventDefault();
+ 			  	event.stopPropagation();
+				}else{
+					// dolar azalt
+					user.monies[user.monies.findIndex(item => item.acr==acrn)].amount -= amount
+					// tl arttır
+					user.monies[user.monies.findIndex(item => item.acr==modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
+					updateUser(user)
+
+					console.log(user);
+
+					// event.preventDefault();
+ 			  	// event.stopPropagation();
+
+				}
+				
 
 			}
 

@@ -33,6 +33,11 @@ function SignUp() {
 						acr:"USD",
 						name:"United States Dollar",
 						amount:10000
+					},
+					{
+						acr:"TRY",
+						name:"Turkish Lira",
+						amount:50000
 					}
 				]
 			}

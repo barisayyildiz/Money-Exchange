@@ -5,6 +5,7 @@ import axios from 'axios'
 import { Button, Modal, Form, Col, Row, Container, Alert } from 'react-bootstrap'
 import { Context } from '../../context';
 import { isAuthenticated, updateUser } from '../../utils';
+import apiKey from '../../key'
 
 function ExchangeModal() {
 
@@ -16,7 +17,7 @@ function ExchangeModal() {
 	useEffect(() => {
 		
 		if(modalProps.open){
-			axios.get(`https://v6.exchangerate-api.com/v6/0b196ddfbe66cabd2fc96fbe/latest/${modalProps.money.acrn}`)
+			axios.get(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/${modalProps.money.acrn}`)
 			.then(({data:{conversion_rates}}) => {
 				const arr = modalProps.acrnList.map(acrn => modalProps.buying ? 1/conversion_rates[acrn] : conversion_rates[acrn])
 				setRates(arr)

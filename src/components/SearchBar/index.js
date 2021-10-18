@@ -9,11 +9,9 @@ function SearchBar({props : {codes}}) {
 	const { handleBuy } = useContext(Context);
 
 	const handleChange = ({target:{value}}) => {
-		console.log(codes)
 		if(value === ""){
 			setOptions([])
 		}else{
-			console.log(options)
 			setOptions( codes.filter(item => item[1].toLowerCase().includes(value.toLowerCase()) ? item : null ) )
 		}
 	}

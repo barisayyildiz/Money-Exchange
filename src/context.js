@@ -1,13 +1,10 @@
 import React, { useState, createContext } from 'react';
-
 import { isAuthenticated } from './utils';
 
 // Create Context
 const Context = createContext();
 
 const ContextProvider = (props) => {
-	// const [userMoney, setUserMoney] = useState([]);
-  const [authenticated, setAuthenticated] = useState(null)
 	const [modalProps, setModalProps] = useState({
 		open:false,
 		header:"",
@@ -23,7 +20,6 @@ const ContextProvider = (props) => {
 
 	const handleBuy = ({name, acrn}) => {
 		const { money } = isAuthenticated();
-		console.log(money);
 		setModalProps({
 			...modalProps,
 			open: true,
@@ -53,15 +49,12 @@ const ContextProvider = (props) => {
 	}
 
   return (
-    <Context.Provider value={{authenticated, 
-															setAuthenticated, 
-															modalProps, 
-															setModalProps, 
-															handleBuy, 
-															handleSell,
-															// userMoney,
-															// setUserMoney
-													}}>
+    <Context.Provider value={{
+				modalProps, 
+				setModalProps, 
+				handleBuy, 
+				handleSell,
+			}}>
       {props.children}
     </Context.Provider>
   )

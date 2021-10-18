@@ -22,11 +22,7 @@ function SignUp() {
       event.stopPropagation();
     }else{
 			const users = getAllUsers();
-			console.log(users)
 
-			event.preventDefault();
-      event.stopPropagation();
-			
 			if(password.length < 6){
 				setAlertMessage("Password is too short...")
 				event.preventDefault();
@@ -70,7 +66,6 @@ function SignUp() {
 			<Form noValidate validated={validated} onSubmit={handleSubmit}>
 				<Col>
 					<Form.Group as={Row} controlId="validationCustomUsername">
-						{/* <Form.Label>Username</Form.Label> */}
 						<InputGroup hasValidation>
 							<Form.Control
 								type="text"
@@ -86,7 +81,6 @@ function SignUp() {
 					</Form.Group>
 
 					<Form.Group as={Row} controlId="validationPassword">
-						{/* <Form.Label>Password</Form.Label> */}
 						<InputGroup hasValidation>
 							<Form.Control
 								type="password"

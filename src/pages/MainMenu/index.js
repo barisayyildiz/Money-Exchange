@@ -28,7 +28,7 @@ function MainMenu() {
 
 		const interval = setInterval(() => {
 			getUsdRate()
-		}, 12000000);
+		}, 120000);
 		return () => clearInterval(interval);
 	}, []);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginForm from './components/Login'
 import SignupForm from './components/SignupPage'

@@ -40,12 +40,6 @@ function SignUp() {
 							acrn:"USD",
 							name:"United States Dollar",
 							amount:10000,
-							favourite:true
-						},
-						{
-							acrn:"TRY",
-							name:"Turkish Lira",
-							amount:50000,
 							favourite:false
 						}
 					]

@@ -32,7 +32,7 @@ function FormExample() {
  		    event.stopPropagation();
 			}else{
 				setAuthenticated(index)
-				history.push("/menu")
+				history.push("/")
 			}
 		}
 

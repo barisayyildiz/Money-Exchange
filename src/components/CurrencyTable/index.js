@@ -1,10 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react'
 import './style.scss'
 
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+
+
 import { Table, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
 import {
 	isAuthenticated,
+	updateUser
 } from '../../utils'
 
 function CurrencyTable({props : {usdRate}}) {
@@ -32,6 +36,13 @@ function CurrencyTable({props : {usdRate}}) {
 
 	const [checkId, setCheckedId] = useState(null);
 	const { handleBuy, handleSell } = useContext(Context);
+
+	const handleStar = (acrn) => {
+		const user = isAuthenticated()
+		const money = user.money.find(m => m.acrn === acrn)
+		money.favourite = !money.favourite
+		updateUser(user);
+	}
 
 	return (
 		<div className="currency-table-wrapper">
@@ -71,9 +82,16 @@ function CurrencyTable({props : {usdRate}}) {
 									<td>{money.acrn}</td>
 									<td>{money.name}</td>
 									<td>{money.amount}</td>
-									<td>
+									<td
+										className="operation-buttons"
+									>
 										<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
 										<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
+										<Button onClick={() => handleStar(money.acrn)} variant="warning">
+											{
+												money.favourite ? <AiFillStar/> : <AiOutlineStar/>
+											}
+											</Button>
 									</td>
 								</tr>
 							)

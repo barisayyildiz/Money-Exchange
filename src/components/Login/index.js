@@ -3,7 +3,7 @@ import './style.scss'
 
 import { useHistory } from "react-router-dom";
 
-import { setAuthenticated } from '../../utils'
+import { setAuthenticated, getAllUsers } from '../../utils'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -31,7 +31,7 @@ function FormExample() {
       event.stopPropagation();
     }else{
 
-			const users = JSON.parse(localStorage.getItem("users"));
+			const users = getAllUsers();
 			const index = users.findIndex(user => user.username == username && user.password === password)
 			if(index < 0){
 				setAlertMessage("User not found...")

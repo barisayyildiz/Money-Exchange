@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './style.scss'
 import { useHistory } from "react-router-dom";
 import { Row, Col, InputGroup, Alert, Button, Form } from 'react-bootstrap';
-
+import { getAllUsers } from '../../utils'
 
 function SignUp() {
 
@@ -20,7 +20,11 @@ function SignUp() {
       event.preventDefault();
       event.stopPropagation();
     }else{
-			const users = JSON.parse(localStorage.getItem("users"));
+			const users = getAllUsers();
+			console.log(users)
+
+			event.preventDefault();
+      event.stopPropagation();
 			
 			if(password.length < 6){
 				setAlertMessage("Password is too short...")

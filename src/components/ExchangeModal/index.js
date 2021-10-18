@@ -32,10 +32,10 @@ function ExchangeModal() {
 			event.preventDefault();
       event.stopPropagation();
 		}else{
-
-			if(modalProps.buying){
-				const { acrnList, selectedAcrnIndex } = modalProps
-				const user = isAuthenticated();
+			const user = isAuthenticated();
+			const { buying, acrnList, selectedAcrnIndex, money } = modalProps
+			
+			if(buying){
 				const acrn = acrnList[selectedAcrnIndex]
 				const total = user.money.find(money => money.acrn === acrn).amount
 
@@ -45,23 +45,21 @@ function ExchangeModal() {
  			  	event.stopPropagation();
 				}else{
 					user.money[user.money.findIndex(item => item.acrn===acrn)].amount -= amount
-
-					const index = user.money.findIndex(item => item.acrn===modalProps.money.acrn)
+					const index = user.money.findIndex(item => item.acrn===money.acrn)
 					if(index !== -1){
-						user.money[index].amount += rates[modalProps.selectedAcrnIndex] * amount
+						user.money[index].amount += rates[selectedAcrnIndex] * amount
 					}else{
 						user.money.push({
-							acrn:modalProps.money.acrn,
-							amount:rates[modalProps.selectedAcrnIndex] * amount,
-							name:modalProps.money.name
+							acrn:money.acrn,
+							amount:rates[selectedAcrnIndex] * amount,
+							name:money.name
 						})
 					}
 					updateUser(user)
 				}
 
 			}else{
-				const user = isAuthenticated();
-				const acrn = modalProps.money.acrn;
+				const acrn = money.acrn;
 				const total = user.money.find(money => money.acrn === acrn).amount
 
 				if(amount > total){
@@ -70,7 +68,7 @@ function ExchangeModal() {
  			  	event.stopPropagation();
 				}else{
 					user.money[user.money.findIndex(item => item.acrn===acrn)].amount -= amount
-					user.money[user.money.findIndex(item => item.acrn===modalProps.acrnList[modalProps.selectedAcrnIndex])].amount += rates[modalProps.selectedAcrnIndex] * amount
+					user.money[user.money.findIndex(item => item.acrn===acrnList[selectedAcrnIndex])].amount += rates[selectedAcrnIndex] * amount
 					updateUser(user)
 				}
 			}
@@ -116,22 +114,23 @@ function ExchangeModal() {
 						</Row>
 					</Container>
 
-					<Form className="exchange-form" onSubmit={handleSubmit}>
+					<Form noValidate className="exchange-form" onSubmit={handleSubmit}>
 						<Form.Group as={Row} className="mb-3" controlId="formPlaintextAmount">
 							<Form.Label column sm="2">
 								Amount
 							</Form.Label>
 							<Col sm="10">
-								<Form.Control step="0.001" required type="number" onChange={({target:{value}}) => setAmount(Number(value))} />
+								<Form.Control required type="number" onChange={({target:{value}}) => setAmount(Number(value))} />
 							</Col>
 						</Form.Group>
 						<Button variant="primary" type="submit">
 							Submit
-						</Button>				
+						</Button>
 					</Form>
 
 					<Alert
 						variant="danger"
+						className="mt-2"
 						show={Boolean(alertMessage)}
 					>{alertMessage}</Alert>
 				

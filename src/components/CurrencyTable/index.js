@@ -66,48 +66,46 @@ function CurrencyTable({props : {usdRate}}) {
 				</thead>
 				<tbody>
 					{
-						userMoney && (
-							userMoney.map((money, index) => {
-								if(pathname === '/favourites' && money.favourite === false)	return null;
+						money.map((money, index) => {
+							if(pathname === '/favourites' && money.favourite === false)	return null;
 
-								return(
-									<tr
-										className="align-items-center"
+							return(
+								<tr
+									className="align-items-center"
+								>
+									<td>
+									<ToggleButton
+										id={`toggle-check-${index}`}
+										type="checkbox"
+										variant="outline-primary"
+										checked={index === checkId}
+										value={index}
+										onChange={(e) => checkId === e.currentTarget.value ? setCheckedId(null) : setCheckedId(Number(e.currentTarget.value))}
+										className="active-currency-toggle"
 									>
-										<td>
-										<ToggleButton
-											id={`toggle-check-${index}`}
-											type="checkbox"
-											variant="outline-primary"
-											checked={index === checkId}
-											value={index}
-											onChange={(e) => checkId === e.currentTarget.value ? setCheckedId(null) : setCheckedId(Number(e.currentTarget.value))}
-											className="active-currency-toggle"
-										>
-											{
-												index === checkId ? "X" : ""
-											}
-										</ToggleButton>
+										{
+											index === checkId ? "X" : ""
+										}
+									</ToggleButton>
 
-										</td>
-										<td>{money.acrn}</td>
-										<td>{money.name}</td>
-										<td>{money.amount}</td>
-										<td
-											className="operation-buttons"
-										>
-											<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
-											<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
-											<Button onClick={() => handleStar(money.acrn)} variant="warning">
-												{
-													money.favourite ? <AiFillStar/> : <AiOutlineStar/>
-												}
-												</Button>
-										</td>
-									</tr>
-								)
-							})
-						)
+									</td>
+									<td>{money.acrn}</td>
+									<td>{money.name}</td>
+									<td>{money.amount}</td>
+									<td
+										className="operation-buttons"
+									>
+										<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
+										<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
+										<Button onClick={() => handleStar(money.acrn)} variant="warning">
+											{
+												money.favourite ? <AiFillStar/> : <AiOutlineStar/>
+											}
+											</Button>
+									</td>
+								</tr>
+							)
+						})
 					}
 					{
 						<tr

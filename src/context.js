@@ -6,6 +6,7 @@ import { isAuthenticated } from './utils';
 const Context = createContext();
 
 const ContextProvider = (props) => {
+	// const [userMoney, setUserMoney] = useState([]);
   const [authenticated, setAuthenticated] = useState(null)
 	const [modalProps, setModalProps] = useState({
 		open:false,
@@ -52,7 +53,15 @@ const ContextProvider = (props) => {
 	}
 
   return (
-    <Context.Provider value={{authenticated, setAuthenticated, modalProps, setModalProps, handleBuy, handleSell}}>
+    <Context.Provider value={{authenticated, 
+															setAuthenticated, 
+															modalProps, 
+															setModalProps, 
+															handleBuy, 
+															handleSell,
+															// userMoney,
+															// setUserMoney
+													}}>
       {props.children}
     </Context.Provider>
   )

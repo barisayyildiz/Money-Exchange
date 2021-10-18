@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import axios from 'axios';
+
+import { Context } from '../../context';
 
 import Navbar from '../../components/Navbar'
 import SearchBar from '../../components/SearchBar'
 import ExchangeModal from '../../components/ExchangeModal'
 import CurrencyTable from '../../components/CurrencyTable'
 
-function MainMenu() {
+import {
+	isAuthenticated
+} from '../../utils';
 
-	const apiKey = "0b196ddfbe66cabd2fc96fbe"
+function MainMenu() {
 	
+	const apiKey = "0b196ddfbe66cabd2fc96fbe"
+
+	const { money } = isAuthenticated()
+	// const { userMoney, setUserMoney } = useContext(Context);
+	// setUserMoney(money);
+
 	const [codes, setCodes] = useState([]);
 	const [usdRate, setUsdRate] = useState({})
 	

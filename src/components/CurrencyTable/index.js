@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import './style.scss'
 
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-
+import { Link, useLocation } from 'react-router-dom'
 
 import { Table, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
@@ -12,7 +12,11 @@ import {
 } from '../../utils'
 
 function CurrencyTable({props : {usdRate}}) {
+
+	let { pathname } = useLocation();
+
 	const { money } = isAuthenticated();
+	const [userMoney, setUserMoney] = useState(money);
 	const [rates, setRates] = useState({})
 	const [totalWorth, setTotalWorth] = useState(0);
 	const [lastUpdated, setLastUpdated] = useState(String(new Date()))
@@ -42,11 +46,18 @@ function CurrencyTable({props : {usdRate}}) {
 		const money = user.money.find(m => m.acrn === acrn)
 		money.favourite = !money.favourite
 		updateUser(user);
+		setUserMoney(money)
 	}
 
 	return (
 		<div className="currency-table-wrapper">
-			<Table bordered hover>
+			{
+				pathname === '/favourites' ? (
+					<h2 className="currency-table-header">Favourites</h2>
+				) : <h2 className="currency-table-header">All Currencies</h2>
+			}
+
+			<Table bordered hover style={{textAlign:'center'}}>
 				<thead>
 					<tr>
 						<th>#</th>
@@ -59,6 +70,8 @@ function CurrencyTable({props : {usdRate}}) {
 				<tbody>
 					{
 						money.map((money, index) => {
+							if(pathname === '/favourites' && money.favourite === false)	return null;
+
 							return(
 								<tr
 									className="align-items-center"
@@ -109,13 +122,23 @@ function CurrencyTable({props : {usdRate}}) {
 						</tr>
 					}
 				</tbody>
-			</Table>	
+			</Table>
+
+			<div className="currency-table-footer">
+				<h3
+					className="last-update-badge"
+				>
+					<Badge>LAST UPDATED {lastUpdated}</Badge>
+				</h3>
 				
-			<h3
-				className="last-update-badge"
-			>
-				<Badge>LAST UPDATED {lastUpdated}</Badge>
-			</h3>
+				{
+					pathname === '/favourites' ? (
+						<Link to="/" style={{ textDecoration: 'none' }}>All Currencies</Link>
+					) : <Link to="/favourites" style={{ textDecoration: 'none' }}>Favourites</Link>
+
+				}
+			</div>
+
 
 		</div>
 	)

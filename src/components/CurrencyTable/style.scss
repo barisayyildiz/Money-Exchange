@@ -1,24 +1,16 @@
 @import "~bootstrap/scss/bootstrap";
 
 .currency-table-wrapper{
-	// text-align: center;
-
 	.currency-table-header{
 		text-align: center;
 	}
-
 	.currency-table-footer{
-		display:flex;
-		justify-content: flex-start;
-		flex-direction: column;
 		padding: 0px 15px;
 
 		a{
 			font-size: 1.3rem;
 		}
-
 	}
-
 }
 
 .active-currency-toggle{

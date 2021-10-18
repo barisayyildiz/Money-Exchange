@@ -18,7 +18,8 @@ function MyNavbar() {
 					<Navbar.Collapse className="justify-content-end">
 						<div className="navbar-logout-wrapper" style={{
 							display:'flex',
-							flexDirection:'column'
+							flexDirection:'column',
+							alignItems:'center'
 						}}>
 							<Navbar.Text>
 								Welcome, {user.username}

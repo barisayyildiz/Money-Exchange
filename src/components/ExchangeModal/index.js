@@ -4,7 +4,6 @@ import axios from 'axios'
 
 import { Button, Modal, Form, Col, Row, Container, Alert } from 'react-bootstrap'
 import { Context } from '../../context';
-
 import { isAuthenticated, updateUser } from '../../utils';
 
 function ExchangeModal() {

@@ -1,22 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import './style.scss'
 
 import { useHistory } from "react-router-dom";
-
 import { setAuthenticated, getAllUsers } from '../../utils'
+import { Row, Col, InputGroup, Alert, Form, Button } from 'react-bootstrap';
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Row, Col, InputGroup, Alert } from 'react-bootstrap';
-
-import { Context } from '../../context'
 
 
 function FormExample() {
 
 	let history = useHistory();
-
-	const context = useContext(Context);
 
   const [validated, setValidated] = useState(false);
 	const [username, setUsername] = useState("");
@@ -32,7 +25,7 @@ function FormExample() {
     }else{
 
 			const users = getAllUsers();
-			const index = users.findIndex(user => user.username == username && user.password === password)
+			const index = users.findIndex(user => user.username === username && user.password === password)
 			if(index < 0){
 				setAlertMessage("User not found...")
 				event.preventDefault();

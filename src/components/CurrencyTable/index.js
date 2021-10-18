@@ -6,10 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { Table, ToggleButton, Button, Badge } from 'react-bootstrap'
 import { Context } from '../../context';
-import {
-	isAuthenticated,
-	updateUser
-} from '../../utils'
+import { isAuthenticated, updateUser } from '../../utils'
 
 function CurrencyTable({props : {usdRate}}) {
 
@@ -69,46 +66,48 @@ function CurrencyTable({props : {usdRate}}) {
 				</thead>
 				<tbody>
 					{
-						money.map((money, index) => {
-							if(pathname === '/favourites' && money.favourite === false)	return null;
+						userMoney && (
+							userMoney.map((money, index) => {
+								if(pathname === '/favourites' && money.favourite === false)	return null;
 
-							return(
-								<tr
-									className="align-items-center"
-								>
-									<td>
-									<ToggleButton
-										id={`toggle-check-${index}`}
-										type="checkbox"
-										variant="outline-primary"
-										checked={index === checkId}
-										value={index}
-										onChange={(e) => checkId === e.currentTarget.value ? setCheckedId(null) : setCheckedId(Number(e.currentTarget.value))}
-										className="active-currency-toggle"
+								return(
+									<tr
+										className="align-items-center"
 									>
-										{
-											index === checkId ? "X" : ""
-										}
-									</ToggleButton>
-
-									</td>
-									<td>{money.acrn}</td>
-									<td>{money.name}</td>
-									<td>{money.amount}</td>
-									<td
-										className="operation-buttons"
-									>
-										<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
-										<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
-										<Button onClick={() => handleStar(money.acrn)} variant="warning">
+										<td>
+										<ToggleButton
+											id={`toggle-check-${index}`}
+											type="checkbox"
+											variant="outline-primary"
+											checked={index === checkId}
+											value={index}
+											onChange={(e) => checkId === e.currentTarget.value ? setCheckedId(null) : setCheckedId(Number(e.currentTarget.value))}
+											className="active-currency-toggle"
+										>
 											{
-												money.favourite ? <AiFillStar/> : <AiOutlineStar/>
+												index === checkId ? "X" : ""
 											}
-											</Button>
-									</td>
-								</tr>
-							)
-						})
+										</ToggleButton>
+
+										</td>
+										<td>{money.acrn}</td>
+										<td>{money.name}</td>
+										<td>{money.amount}</td>
+										<td
+											className="operation-buttons"
+										>
+											<Button onClick={() => handleBuy(money)} disabled={index !== checkId ? true : false} variant="success" >BUY</Button>
+											<Button onClick={() => handleSell(money)} disabled={index !== checkId ? true : false} variant="danger" >SELL</Button>
+											<Button onClick={() => handleStar(money.acrn)} variant="warning">
+												{
+													money.favourite ? <AiFillStar/> : <AiOutlineStar/>
+												}
+												</Button>
+										</td>
+									</tr>
+								)
+							})
+						)
 					}
 					{
 						<tr

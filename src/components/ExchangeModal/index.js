@@ -52,7 +52,8 @@ function ExchangeModal() {
 						user.money.push({
 							acrn:money.acrn,
 							amount:rates[selectedAcrnIndex] * amount,
-							name:money.name
+							name:money.name,
+							favourite:false
 						})
 					}
 					updateUser(user)

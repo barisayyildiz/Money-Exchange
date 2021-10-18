@@ -33,16 +33,11 @@ function App() {
 					}}
 				>
 				</Route>
-				{
-					// if user is authenticated
-					isAuthenticated() ? (
-						<>
-							<Route path='/'>
-								<MainMenu></MainMenu>
-							</Route>
-						</>
-					) : <Redirect	to={{pathname: "/login"}}/>
-				}
+				<Route path="/">
+					{
+						isAuthenticated() ? <MainMenu></MainMenu> : <LoginForm></LoginForm>
+					}
+				</Route>
 			</Switch>
 		</div>
   );
